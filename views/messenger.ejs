@@ -1,0 +1,85 @@
+<%- include('./partials/_header.ejs') %>
+<%- include('./partials/_nav.ejs') %>
+  <div class="d-flex flex-nowrap" style="height: 90vh; width: 100%; margin: 0;">
+    <div class="d-flex flex-column justify-content-between 
+      p-3 ms-5 mt-5 shadow bg-white" style="width: 14%; min-width: 14%">
+      <div>
+        <h2>Friends</h2>
+        <hr>
+        <div id="plist" class="people-list">
+          <ul id="friends_list" class="list-unstyled chat-list d-grid mt-2 mb-0">
+            <% friendList.forEach(friend=>{ %>
+              <li class="friend d-flex justify-content-between" onclick="open_chat(this)" f_id="<%= friend.id %>" f_name="<%= friend.full_name %>">
+                <div class="d-flex">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                  <div class="about">
+                    <%= friend.full_name %>
+                  </div>
+                </div>
+                <div class="newMsgAlert bg-info p-1"></div>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+      <div class="dropdown border-top pt-3">
+        <a class="d-flex align-items-center text-decoration-none dropdown-toggle" 
+        data-bs-toggle="dropdown" aria-expanded="false" style="overflow-x: clip; cursor: pointer;">
+          <img src="https://github.com/doomzy.png" alt="" width="32" height="32" class="rounded-circle me-2">
+          <strong id="user" uid="<%= user.id %>"><%= user.full_name  %></strong>
+        </a>
+        <ul class="dropdown-menu text-small shadow">
+          <li><a class="dropdown-item" onclick="open_profile('<%= user.id %>')">Profile</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="/u/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="w-75 p-3 d-flex flex-column position-relative" style="margin-inline: auto;">
+      <div id="search_container" class="w-50 m-auto position-absolute start-0 end-0" style="z-index: 10;">
+        <input id="user_search" class="form-control dropdown-toggle" type="search" 
+          placeholder="Search for a user" aria-label="Search" data-bs-toggle="dropdown" aria-expanded="false">
+        <div id="serach_results" class="dropdown-menu bg-white shadow p-3 w-100" style="max-height: 200px;">
+          <h4 class="nomatch text-center text-muted pt-2">Enter a valid Name</h4>
+        </div>
+      </div> 
+      <span style="margin-top: 5rem;"></span>
+      <div id="chat-window" class="h-100 bg-white overflow-hidden shadow">
+        <h2 class="text-center text-muted mt-4">
+          Click on Your Friends to open a Conversation
+        </h2>
+          
+      </div>
+    </div>
+    <div id="notification_feed" class="toast-container">
+      <div class="toast hide" id="msgToast" role="status" aria-live="polite">
+        <div class="toast-header">
+            <strong class="me-auto">Message</strong>
+            <small class="text-muted">just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+        </div>
+      </div>
+      <div class="toast hide" id="friendToast" role="status" aria-live="polite">
+        <div class="toast-header">
+            <strong class="me-auto">Friend Status</strong>
+            <small class="text-muted">just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+        </div>
+      </div>
+      <div class="toast bg-danger text-bg-danger hide" id="errorToast" role="status" aria-live="polite">
+        <div class="toast-header">
+            <strong class="me-auto">Error</strong>
+            <small class="text-muted">just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%- include('./partials/_footer.ejs') %>
